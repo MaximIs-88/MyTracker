@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyTracker.Models;
-using MyTracker.Models.ManageViewModels;
 using MyTracker.Services;
+using MyTracker.ViewModels.ManageViewModels;
 
 namespace MyTracker.Controllers
 {

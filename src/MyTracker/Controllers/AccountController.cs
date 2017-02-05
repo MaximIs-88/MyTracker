@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using MyTracker.Models;
-using MyTracker.Models.AccountViewModels;
 using MyTracker.Services;
+using MyTracker.ViewModels.AccountViewModels;
 
 namespace MyTracker.Controllers
 {
