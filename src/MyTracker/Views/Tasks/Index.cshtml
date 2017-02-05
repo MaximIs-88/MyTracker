@@ -1,0 +1,18 @@
+﻿@model MyTracker.ViewModels.TasksViewModel
+
+<h1>List of tasks:</h1>
+@foreach (var userstory in @Model.MyTasks)
+{
+    <tr>
+        <td>
+            @userstory.Id
+        </td>
+        
+        <td>
+            @userstory.Description
+        </td>
+        <td>
+            @userstory.Name
+        </td>
+    </tr>
+}

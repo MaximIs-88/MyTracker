@@ -172,7 +172,7 @@ namespace MyTracker.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("MyTracker.Models.Task", b =>
+            modelBuilder.Entity("MyTracker.Models.MyTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyTracker.Models
 {
-    public class Task
+    public class MyTask
     {
         public int Id { get; set; }
         public string Name { get; set; }
