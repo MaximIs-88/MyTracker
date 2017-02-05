@@ -1,19 +1,20 @@
-﻿@model MyTracker.ViewModels.TasksViewModel
+﻿@model IEnumerable<MyTask>
 
+<h4><a asp-area="" asp-controller="Tasks" asp-action="Create">Create new Task</a></h4>
 <h1>List of tasks:</h1>
 <table class="table">
     <tr>
         <th>
-            <label asp-for=@Model.MyTasks.First().Id></label>
+            <label asp-for=@Model.First().Id></label>
         </th>
         <th>
-            <label asp-for=@Model.MyTasks.First().Name></label>
+            <label asp-for=@Model.First().Name></label>
         </th>
         <th>
-            <label asp-for=@Model.MyTasks.First().Description></label>
+            <label asp-for=@Model.First().Description></label>
         </th>
     </tr>
-    @foreach (var task in @Model.MyTasks)
+    @foreach (var task in @Model)
     {
         <tr>
             <td>

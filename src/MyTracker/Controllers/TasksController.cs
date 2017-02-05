@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyTracker.Data;
+using MyTracker.Models;
+using MyTracker.ViewModels;
+using System.Collections.Generic;
 
 namespace MyTracker.Controllers
 {
@@ -16,13 +15,30 @@ namespace MyTracker.Controllers
             _dbContext = dbContext;
         }
 
-
-        public IActionResult Index()
+        public IActionResult Index(IEnumerable<MyTask> model)
         {
-            var model = new ViewModels.TasksViewModel {MyTasks = _dbContext.Tasks};
-
+            model = _dbContext.Tasks;
 
             return View(model);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(MyTask model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _dbContext.Tasks.Add(model);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
