@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using MyTracker.Models;
 
 namespace MyTracker.Data
 {
@@ -17,11 +18,17 @@ namespace MyTracker.Data
         {
             if (_db.Tasks.Any()) return;
 
-            _db.Tasks.Add(new Models.MyTask
-            {
-                Name = "First",
-                Description = "First task"
-            });
+            _db.Tasks.AddRange(
+                new MyTask
+                {
+                    Name = "First",
+                    Description = "First task"
+                }, 
+                new MyTask
+                {
+                    Name = "Second",
+                    Description = "Second task"
+                });
 
             _db.SaveChanges();
         }

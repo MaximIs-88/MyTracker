@@ -1,18 +1,30 @@
 ﻿@model MyTracker.ViewModels.TasksViewModel
 
 <h1>List of tasks:</h1>
-@foreach (var userstory in @Model.MyTasks)
-{
+<table class="table">
     <tr>
-        <td>
-            @userstory.Id
-        </td>
-        
-        <td>
-            @userstory.Description
-        </td>
-        <td>
-            @userstory.Name
-        </td>
+        <th>
+            <label asp-for=@Model.MyTasks.First().Id></label>
+        </th>
+        <th>
+            <label asp-for=@Model.MyTasks.First().Name></label>
+        </th>
+        <th>
+            <label asp-for=@Model.MyTasks.First().Description></label>
+        </th>
     </tr>
-}
+    @foreach (var task in @Model.MyTasks)
+    {
+        <tr>
+            <td>
+                @task.Id
+            </td>
+            <td>
+                @task.Name
+            </td>
+            <td>
+                @task.Description
+            </td>
+        </tr>
+    }
+</table>
