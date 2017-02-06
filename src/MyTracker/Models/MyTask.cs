@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyTracker.Models
 {
@@ -9,9 +6,11 @@ namespace MyTracker.Models
     {
         public int Id { get; set; }
 
-     /*   [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.MaxLength(3)]*/
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
+
+        
         public string Description { get; set; }
 
     }

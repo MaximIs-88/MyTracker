@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTracker.Models;
 
 namespace MyTracker.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Models.MyTask> Tasks { get; set; } 
+        public DbSet<MyTask> Tasks { get; set; } 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -19,10 +16,14 @@ namespace MyTracker.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            /*var propertyBuilder = builder.Entity<MyTask>().Property(_ => _.Name)
+                .HasAnnotation("Display", "test2")
+                .IsRequired();*/
+
             base.OnModelCreating(builder);
 
-            builder.Entity<MyTask>().Property(_ => _.Name).IsRequired();
-                     
+          
+
         }
     }
 }
