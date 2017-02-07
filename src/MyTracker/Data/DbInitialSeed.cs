@@ -22,14 +22,16 @@ namespace MyTracker.Data
                 new MyTask
                 {
                     Name = "First",
-                    Description = "First task"
+                    Description = "First task",
+                    Author = new ApplicationUser { UserName = "Max" }
                 }, 
                 new MyTask
                 {
                     Name = "Second",
-                    Description = "Second task"
+                    Description = "Second task",
+                    Author = new ApplicationUser { UserName = "Max" }
                 });
-
+            
             _db.SaveChanges();
         }
     }

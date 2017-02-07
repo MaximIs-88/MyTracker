@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MyTracker.Data;
 using MyTracker.Models;
-using MyTracker.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
+using MyTracker.ViewModels;
 
 namespace MyTracker.Controllers
 {
@@ -15,11 +16,18 @@ namespace MyTracker.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index(IEnumerable<MyTask> model)
+        public IActionResult Index()
         {
-            model = _dbContext.Tasks;
+            IEnumerable<MyTask> model = _dbContext.Tasks;
 
-            return View(model);
+                        var viewModelList = model.Select(task => new TasksViewModel
+            {
+                Name = task.Name,
+                Description = task.Description,
+                UserName = _dbContext.Users.Single(u => u.Id == "a0214baf-c96f-4731-8f02-b9ed102fab0e")
+            }).ToList();
+
+            return View(viewModelList);
         }
 
         public IActionResult Create()

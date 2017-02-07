@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyTask>
+﻿@model IEnumerable<MyTracker.ViewModels.TasksViewModel>
 
 <h4><a asp-area="" asp-controller="Tasks" asp-action="Create">Create new Task</a></h4>
 <h1>List of tasks:</h1>
@@ -13,6 +13,9 @@
         <th>
             <label asp-for=@Model.First().Description></label>
         </th>
+        <th>
+            <label asp-for=@Model.First().UserName></label>
+        </th>
     </tr>
     @foreach (var task in @Model)
     {
@@ -25,6 +28,9 @@
             </td>
             <td>
                 @task.Description
+            </td>
+            <td>
+                @task.UserName
             </td>
         </tr>
     }
