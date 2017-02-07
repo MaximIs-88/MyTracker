@@ -1,5 +1,5 @@
 ﻿using MyTracker.Models;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyTracker.ViewModels
 {
@@ -11,7 +11,7 @@ namespace MyTracker.ViewModels
 
         public string Description { get; set; }
 
-        [DisplayName("Author")]
+        [Display(Name = "Author")]
         public ApplicationUser UserName { get; set; }
     }
 }
