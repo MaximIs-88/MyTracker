@@ -3,6 +3,7 @@ using MyTracker.Data;
 using MyTracker.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using MyTracker.ViewModels;
 
 namespace MyTracker.Controllers
@@ -10,31 +11,38 @@ namespace MyTracker.Controllers
     public class TasksController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IIdentityManager _identityManager;
 
-        public TasksController(ApplicationDbContext dbContext)
+        public TasksController(ApplicationDbContext dbContext,
+            IIdentityManager identityManager)
         {
             _dbContext = dbContext;
+            _identityManager = identityManager;
         }
 
         public IActionResult Index()
         {
             IEnumerable<MyTask> model = _dbContext.Tasks;
 
-                        var viewModelList = model.Select(task => new TasksViewModel
+            var userId = _identityManager.GetCurrentUser(HttpContext.User).Id;
+
+            var viewModelList = model.Select(task => new TasksViewModel
             {
                 Name = task.Name,
                 Description = task.Description,
-                UserName = _dbContext.Users.Single(u => u.Id == "a0214baf-c96f-4731-8f02-b9ed102fab0e")
+                UserName = _dbContext.Users.Single(u => u.Id == userId.ToString())
             }).ToList();
 
             return View(viewModelList);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(MyTask model)
         {

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyTracker.Controllers;
 using MyTracker.Data;
 using MyTracker.Models;
 using MyTracker.Services;
@@ -52,6 +53,8 @@ namespace MyTracker
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddTransient<IIdentityManager, IdentityManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
