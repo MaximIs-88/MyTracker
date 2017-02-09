@@ -5,9 +5,6 @@
 <table class="table">
     <tr>
         <th>
-            <label asp-for=@Model.First().Id></label>
-        </th>
-        <th>
             <label asp-for=@Model.First().Name></label>
         </th>
         <th>
@@ -20,10 +17,7 @@
     @foreach (var task in @Model)
     {
         <tr>
-            <td>
-                @task.Id
-            </td>
-            <td>
+           <td>
                 @task.Name
             </td>
             <td>

@@ -18,18 +18,19 @@ namespace MyTracker.Data
         {
             if (_db.Tasks.Any()) return;
 
+            var applicationUser = new ApplicationUser { UserName = "Max" };
             _db.Tasks.AddRange(
                 new MyTask
                 {
                     Name = "First",
                     Description = "First task",
-                    Author = new ApplicationUser { UserName = "Max" }
+                    Author = applicationUser
                 }, 
                 new MyTask
                 {
                     Name = "Second",
                     Description = "Second task",
-                    Author = new ApplicationUser { UserName = "Max" }
+                    Author = applicationUser
                 });
             
             _db.SaveChanges();

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyTracker.Data;
 using MyTracker.Models;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using MyTracker.ViewModels;
@@ -22,17 +21,12 @@ namespace MyTracker.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<MyTask> model = _dbContext.Tasks;
-
-            var userId = _identityManager.GetCurrentUser(HttpContext.User).Id;
-
-            var viewModelList = model.Select(task => new TasksViewModel
+            var viewModelList = _dbContext.Tasks.Select(task => new TasksViewModel
             {
                 Name = task.Name,
                 Description = task.Description,
-                UserName = _dbContext.Users.Single(u => u.Id == userId.ToString())
-            }).ToList();
-
+                UserName = task.Author.UserName 
+            });
             return View(viewModelList);
         }
 
@@ -50,11 +44,30 @@ namespace MyTracker.Controllers
             {
                 return View();
             }
-
+           
+            model.Author = _identityManager.GetCurrentUser(HttpContext.User);
+            
             _dbContext.Tasks.Add(model);
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
+       /* [Authorize]
+        [HttpPost]
+        public IActionResult Delete(MyTask model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            model.Author = _identityManager.GetCurrentUser(HttpContext.User);
+
+            _dbContext.Tasks.Add(model);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }*/
     }
 }
