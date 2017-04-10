@@ -19,6 +19,11 @@ namespace MyTracker.Data.Repositories
             _dbContext.Tasks.Add(task);
         }
 
+        public void Delete(MyTask model)
+        {
+            _dbContext.Tasks.Remove(model);
+        }
+
         public IEnumerable<MyTask> GetAll()
         {
             return _dbContext.Tasks
@@ -30,6 +35,8 @@ namespace MyTracker.Data.Repositories
     public interface ITasksRepository
     {
         void Add(MyTask task);
+
+        void Delete(MyTask model);
 
         IEnumerable<MyTask> GetAll();
     }

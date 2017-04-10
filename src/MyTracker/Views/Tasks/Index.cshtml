@@ -26,6 +26,9 @@
             <td>
                 @task.UserName
             </td>
+            <td>
+                <a asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.Id">Delete</a>
+            </td>
         </tr>
     }
 </table>

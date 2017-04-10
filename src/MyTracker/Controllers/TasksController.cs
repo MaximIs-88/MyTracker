@@ -22,6 +22,7 @@ namespace MyTracker.Controllers
 
             var viewModelList = tasks.Select(task => new TasksViewModel
             {
+                Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
                 UserName = task.Author.UserName
@@ -53,21 +54,13 @@ namespace MyTracker.Controllers
             return RedirectToAction("Index");
         }
 
-        /* [Authorize]
-        [HttpPost]
-        public IActionResult Delete(MyTask model)
+        [Authorize]
+        public IActionResult Delete(MyTask task)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            model.Author = _identityManager.GetCurrentUser(HttpContext.User);
-
-            _dbContext.Tasks.Add(model);
-            _dbContext.SaveChanges();
+            _unitOfWork.TasksRepository.Delete(task);
+            _unitOfWork.Commit();
 
             return RedirectToAction("Index");
-        }*/
+        }
     }
 }
