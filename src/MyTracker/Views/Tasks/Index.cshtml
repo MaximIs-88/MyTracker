@@ -14,7 +14,7 @@
             <label asp-for=@Model.First().UserName></label>
         </th>
     </tr>
-    @foreach (var task in @Model)
+    @foreach (var task in @Model.OrderBy(model => model.Name))
     {
         <tr>
            <td>

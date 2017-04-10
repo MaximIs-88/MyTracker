@@ -11,22 +11,27 @@ namespace MyTracker.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IIdentityManager _identityManager;
+        private readonly IUnitOfWork _unitOfWork;
 
         public TasksController(ApplicationDbContext dbContext,
-            IIdentityManager identityManager)
+            IIdentityManager identityManager, IUnitOfWork unitOfWork)
         {
             _dbContext = dbContext;
             _identityManager = identityManager;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            var viewModelList = _dbContext.Tasks.Select(task => new TasksViewModel
+            var tasks = _unitOfWork.TasksRepository.GetAll();
+
+            var viewModelList = tasks.Select(task => new TasksViewModel
             {
                 Name = task.Name,
                 Description = task.Description,
-                UserName = task.Author.UserName 
-            });
+                UserName = task.Author.UserName
+            }).ToList();
+
             return View(viewModelList);
         }
 
@@ -44,16 +49,16 @@ namespace MyTracker.Controllers
             {
                 return View();
             }
-           
+
             model.Author = _identityManager.GetCurrentUser(HttpContext.User);
-            
+
             _dbContext.Tasks.Add(model);
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-       /* [Authorize]
+        /* [Authorize]
         [HttpPost]
         public IActionResult Delete(MyTask model)
         {

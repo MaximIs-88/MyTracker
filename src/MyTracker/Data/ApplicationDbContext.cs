@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyTracker.Models;
 
 namespace MyTracker.Data
@@ -13,7 +12,7 @@ namespace MyTracker.Data
             : base(options)
         {
         }
-
+                
         protected override void OnModelCreating(ModelBuilder builder)
         {
             /*var propertyBuilder = builder.Entity<MyTask>().Property(_ => _.Name)
