@@ -1,19 +1,35 @@
-﻿using MyTracker.Data.Repositories;
+﻿using MyTracker.Controllers;
+using MyTracker.Data.Repositories;
 
 namespace MyTracker.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(ApplicationDbContext context)
+        private readonly ApplicationDbContext _dbContext;
+
+        public UnitOfWork(ApplicationDbContext dbContext, ITasksRepository tasksRepository,
+            IIdentityManager identityManager)
         {
-            TasksRepository = new TasksRepository(context);
+            _dbContext = dbContext;
+            IdentityManager = identityManager;
+            TasksRepository = tasksRepository;
         }
 
-        public ITasksRepository TasksRepository { get; set; }
+        public void Commit()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public ITasksRepository TasksRepository { get; }
+        public IIdentityManager IdentityManager { get; }
     }
 
     public interface IUnitOfWork
     {
+        void Commit();
+
         ITasksRepository TasksRepository { get; }
+
+        IIdentityManager IdentityManager { get; }
     }
 }

@@ -14,6 +14,11 @@ namespace MyTracker.Data.Repositories
             _dbContext = dbContext;
         }
 
+        public void Add(MyTask task)
+        {
+            _dbContext.Tasks.Add(task);
+        }
+
         public IEnumerable<MyTask> GetAll()
         {
             return _dbContext.Tasks
@@ -24,6 +29,8 @@ namespace MyTracker.Data.Repositories
 
     public interface ITasksRepository
     {
+        void Add(MyTask task);
+
         IEnumerable<MyTask> GetAll();
     }
 }

@@ -9,15 +9,10 @@ namespace MyTracker.Controllers
 {
     public class TasksController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly IIdentityManager _identityManager;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TasksController(ApplicationDbContext dbContext,
-            IIdentityManager identityManager, IUnitOfWork unitOfWork)
+        public TasksController(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
-            _identityManager = identityManager;
             _unitOfWork = unitOfWork;
         }
 
@@ -50,10 +45,10 @@ namespace MyTracker.Controllers
                 return View();
             }
 
-            model.Author = _identityManager.GetCurrentUser(HttpContext.User);
+            model.Author = _unitOfWork.IdentityManager.GetCurrentUser(HttpContext.User);
 
-            _dbContext.Tasks.Add(model);
-            _dbContext.SaveChanges();
+            _unitOfWork.TasksRepository.Add(model);
+            _unitOfWork.Commit();
 
             return RedirectToAction("Index");
         }
