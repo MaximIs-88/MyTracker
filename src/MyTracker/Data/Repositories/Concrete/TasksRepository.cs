@@ -22,12 +22,14 @@ namespace MyTracker.Data.Repositories.Concrete
 
         public void Delete(MyTask model)
         {
-            _dbContext.Tasks.Remove(model);
+            var myTask = _dbContext.Tasks.FirstOrDefault(id => id.Id == model.Id);
+            myTask.IsDeleted = true;
         }
 
         public IEnumerable<MyTask> GetAll()
         {
             return _dbContext.Tasks
+                .Where(_ => !_.IsDeleted)
                 .Include(_ => _.Author)
                 .AsEnumerable();
         }

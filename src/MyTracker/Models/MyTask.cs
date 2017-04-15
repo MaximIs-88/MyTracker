@@ -14,5 +14,6 @@ namespace MyTracker.Models
 
         public ApplicationUser Author { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }
