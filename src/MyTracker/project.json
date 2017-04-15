@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-MyTracker-2d917f6a-d1a7-475e-a805-86f81aabcc28",
 
   "dependencies": {
@@ -43,7 +43,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "AutoMapper": "6.0.2"
   },
 
   "tools": {

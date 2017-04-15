@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<MyTracker.ViewModels.TasksViewModel>
-
+<script src="~/js/tsExample.js"></script>
 <h4><a asp-area="" asp-controller="Tasks" asp-action="Create">Create new Task</a></h4>
 <h1>List of tasks:</h1>
 <table class="table">
@@ -17,7 +17,7 @@
     @foreach (var task in @Model.OrderBy(model => model.Name))
     {
         <tr>
-           <td>
+            <td>
                 @task.Name
             </td>
             <td>
@@ -27,7 +27,7 @@
                 @task.UserName
             </td>
             <td>
-                <a asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.Id">Delete</a>
+                <a id="mylink" asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.Id" onclick="alert('Entity will be deleted!')">Delete</a>
             </td>
         </tr>
     }

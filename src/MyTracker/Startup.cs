@@ -10,6 +10,7 @@ using MyTracker.Data;
 using MyTracker.Models;
 using MyTracker.Services;
 using MyTracker.Data.Repositories;
+using MyTracker.ViewModels;
 
 namespace MyTracker
 {
@@ -54,6 +55,7 @@ namespace MyTracker
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddTransient<ITasksRepository, TasksRepository>();
+            services.AddTransient<IMapperConfig, MapperConfig>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

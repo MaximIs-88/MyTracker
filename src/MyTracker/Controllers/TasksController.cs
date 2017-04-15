@@ -10,23 +10,19 @@ namespace MyTracker.Controllers
     public class TasksController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public TasksController(IUnitOfWork unitOfWork)
+        private readonly IMapperConfig _mapper;
+       
+        public TasksController(IUnitOfWork unitOfWork, IMapperConfig mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var tasks = _unitOfWork.TasksRepository.GetAll();
 
-            var viewModelList = tasks.Select(task => new TasksViewModel
-            {
-                Id = task.Id,
-                Name = task.Name,
-                Description = task.Description,
-                UserName = task.Author.UserName
-            }).ToList();
+            var viewModelList = tasks.Select(_mapper.Map<MyTask, TasksViewModel>);
 
             return View(viewModelList);
         }

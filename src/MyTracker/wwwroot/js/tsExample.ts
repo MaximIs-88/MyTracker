@@ -1,0 +1,3 @@
+﻿(() => {
+    alert("Made with TypeScript™");
+})();
