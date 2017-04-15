@@ -42,12 +42,12 @@ namespace MyTracker.Controllers
                 return View();
             }
 
-            model.Author = _unitOfWork.IdentityManager.GetCurrentUser(HttpContext.User);
+            model.Author = _unitOfWork.IdentityRepository.GetCurrentUser(HttpContext.User);
 
             _unitOfWork.TasksRepository.Add(model);
             _unitOfWork.Commit();
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [Authorize]
@@ -56,7 +56,7 @@ namespace MyTracker.Controllers
             _unitOfWork.TasksRepository.Delete(task);
             _unitOfWork.Commit();
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

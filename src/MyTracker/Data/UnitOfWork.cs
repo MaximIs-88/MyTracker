@@ -1,5 +1,6 @@
 ﻿using MyTracker.Controllers;
 using MyTracker.Data.Repositories;
+using MyTracker.Data.Repositories.Abstract;
 
 namespace MyTracker.Data
 {
@@ -8,10 +9,10 @@ namespace MyTracker.Data
         private readonly ApplicationDbContext _dbContext;
 
         public UnitOfWork(ApplicationDbContext dbContext, ITasksRepository tasksRepository,
-            IIdentityManager identityManager)
+            IIdentityRepository identityRepository)
         {
             _dbContext = dbContext;
-            IdentityManager = identityManager;
+            IdentityRepository = identityRepository;
             TasksRepository = tasksRepository;
         }
 
@@ -21,15 +22,6 @@ namespace MyTracker.Data
         }
 
         public ITasksRepository TasksRepository { get; }
-        public IIdentityManager IdentityManager { get; }
-    }
-
-    public interface IUnitOfWork
-    {
-        void Commit();
-
-        ITasksRepository TasksRepository { get; }
-
-        IIdentityManager IdentityManager { get; }
+        public IIdentityRepository IdentityRepository { get; }
     }
 }

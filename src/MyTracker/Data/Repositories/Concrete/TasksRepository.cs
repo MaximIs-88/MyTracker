@@ -1,9 +1,10 @@
-﻿using MyTracker.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MyTracker.Data.Repositories.Abstract;
+using MyTracker.Models;
 
-namespace MyTracker.Data.Repositories
+namespace MyTracker.Data.Repositories.Concrete
 {
     public class TasksRepository : ITasksRepository
     {
@@ -30,14 +31,5 @@ namespace MyTracker.Data.Repositories
                 .Include(_ => _.Author)
                 .AsEnumerable();
         }
-    }
-
-    public interface ITasksRepository
-    {
-        void Add(MyTask task);
-
-        void Delete(MyTask model);
-
-        IEnumerable<MyTask> GetAll();
     }
 }

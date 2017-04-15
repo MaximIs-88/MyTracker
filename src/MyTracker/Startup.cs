@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MyTracker.Controllers;
 using MyTracker.Data;
 using MyTracker.Models;
 using MyTracker.Services;
-using MyTracker.Data.Repositories;
+using MyTracker.Data.Repositories.Abstract;
+using MyTracker.Data.Repositories.Concrete;
 using MyTracker.ViewModels;
 
 namespace MyTracker
@@ -53,7 +53,7 @@ namespace MyTracker
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IIdentityManager, IdentityManager>();
+            services.AddTransient<IIdentityRepository, IdentityRepository>();
             services.AddTransient<ITasksRepository, TasksRepository>();
             services.AddTransient<IMapperConfig, MapperConfig>();
         }

@@ -1,14 +1,15 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using MyTracker.Data.Repositories.Abstract;
 using MyTracker.Models;
 
-namespace MyTracker.Controllers
+namespace MyTracker.Data.Repositories.Concrete
 {
-    public class IdentityManager : IIdentityManager
+    public class IdentityRepository : IIdentityRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public IdentityManager(UserManager<ApplicationUser> userManager)
+        public IdentityRepository(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -17,10 +18,5 @@ namespace MyTracker.Controllers
         {
             return _userManager.GetUserAsync(user).Result;
         }
-    }
-
-    public interface IIdentityManager
-    {
-        ApplicationUser GetCurrentUser(ClaimsPrincipal user);
     }
 }
