@@ -16,6 +16,7 @@
     </tr>
     @foreach (var task in @Model.OrderBy(model => model.Name))
     {
+
         <tr>
             <td>
                 @task.Name
@@ -27,8 +28,21 @@
                 @task.UserName
             </td>
             <td>
-                <a id="mylink" asp-controller="Tasks" asp-action="Delete" asp-route-id="@task.Id" onclick="alert('Entity will be deleted!')">Delete</a>
+                <form id="test" asp-controller="Tasks" asp-action="Delete" method="POST">
+                <input type="hidden" name="id" value="@task.Id"/>
+                    <a onclick="submit()">Delete</a>                    
+                </form>
             </td>
         </tr>
     }
 </table>
+
+@section scripts
+{
+    <script>
+        function submit() {
+            document.getElementById("test").submit();
+            alert('Entity will be deleted!');
+        }
+    </script>
+}

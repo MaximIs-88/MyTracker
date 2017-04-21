@@ -20,9 +20,9 @@ namespace MyTracker.Data.Repositories.Concrete
             _dbContext.Tasks.Add(task);
         }
 
-        public void Delete(MyTask model)
+        public void Delete(int id)
         {
-            var myTask = _dbContext.Tasks.FirstOrDefault(id => id.Id == model.Id);
+            var myTask = _dbContext.Tasks.FirstOrDefault(task => task.Id == id);
             myTask.IsDeleted = true;
         }
 

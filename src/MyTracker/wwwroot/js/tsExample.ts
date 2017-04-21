@@ -1,3 +1,3 @@
-﻿(() => {
+﻿/*(() => {
     alert("Made with TypeScript™");
-})();
+})();*/

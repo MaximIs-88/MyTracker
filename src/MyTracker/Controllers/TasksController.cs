@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyTracker.Data;
 using MyTracker.Models;
@@ -51,9 +52,10 @@ namespace MyTracker.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(MyTask task)
+        [HttpPost]
+        public IActionResult Delete(int id)
         {
-            _unitOfWork.TasksRepository.Delete(task);
+            _unitOfWork.TasksRepository.Delete(id);
             _unitOfWork.Commit();
 
             return RedirectToAction(nameof(Index));

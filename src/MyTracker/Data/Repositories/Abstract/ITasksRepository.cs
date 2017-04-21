@@ -7,7 +7,7 @@ namespace MyTracker.Data.Repositories.Abstract
     {
         void Add(MyTask task);
 
-        void Delete(MyTask model);
+        void Delete(int id);
 
         IEnumerable<MyTask> GetAll();
     }
