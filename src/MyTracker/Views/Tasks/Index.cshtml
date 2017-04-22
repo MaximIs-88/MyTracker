@@ -48,24 +48,42 @@
 
         function edit(id) {
             var tr = $('#'+id);
-            var taskName = $(tr).children('td:first'); //alert(taskName.text());
-
+            var taskName = $(tr).children('td:first');
+        
             var linkEdit = $(tr).find('#linkEdit');
             var linkDelete = $(tr).find('#linkDelete');
 
-            $(linkEdit).replaceWith("<a id='linkSave' class='btn'>Save</a>");
-            var linkCancel = "<a id='linkCancel' class='btn' onclick='replaceBack(" + id + ',' + taskName.text() + ")'>Cancel</a>"; //alert(linkCancel);
-            $(linkDelete).replaceWith(linkCancel);
+            $(linkEdit).replaceWith("<a id='linkSave' class='btn'>Save</a>");        
+
+            var inputElement = document.createElement('a');
+            inputElement.classList = "btn";
+            inputElement.text = "Cancel";
+            inputElement.onclick = function(){
+                replaceBack(id,taskName);
+            };
+            
+            $(linkDelete).replaceWith(inputElement);
+            
             $(taskName).html("<input id='tbName' placeholder='Enter new Name' />");
         }
 
         function replaceBack(id, taskName) {
-            var tr = document.getElementById(id); //alert(id);
+            var tr = document.getElementById(id); 
             var name = $(tr).children('td:first');
 
             $('#linkSave').replaceWith('<a id="linkEdit" class="btn" onclick="edit(' +id+')">Edit</a>');
             $('#linkCancel').replaceWith('<a id="linkDelete" class="btn" onclick="submit('+id+')">Delete</a>');
             $('#tbName').replaceWith(taskName);
+        }
+
+        String.format = function() {
+            var s = arguments[0];
+            for (var i = 0; i < arguments.length - 1; i++) {       
+                var reg = new RegExp("\\{" + i + "\\}", "gm");             
+                s = s.replace(reg, arguments[i + 1]);
+            }
+
+            return s;
         }
     </script>
 }
