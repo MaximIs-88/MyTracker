@@ -44,37 +44,51 @@
             var foo = '#' + id;
             $(foo).find('#test').submit();
             alert('Entity will be deleted!');
-        }      
+        }
 
         function edit(id) {
-            var tr = $('#'+id);
+            var tr = $('#' + id);
             var taskName = $(tr).children('td:first');
             var taskNameValue = taskName.text();
-        
+
+            var nameTextBox = document.createElement('input');
+            nameTextBox.id = 'tbName';
+            nameTextBox.placeholder = 'Enter new Name';
+            $(taskName).html(nameTextBox);
+
             var linkEdit = $(tr).find('#linkEdit');
-            var linkDelete = $(tr).find('#linkDelete');
-
-            $(linkEdit).replaceWith("<a id='linkSave' class='btn'>Save</a>");        
-
-            var inputElement = document.createElement('a');
-            inputElement.id = 'linkCancel';
-            inputElement.classList = "btn";
-            inputElement.text = "Cancel";
-            inputElement.onclick = function(){
-                replaceBack(id,taskNameValue);
+            var saveLink = document.createElement('a');
+            saveLink.id = 'linkSave';
+            saveLink.classList = "btn";
+            saveLink.text = "Save";
+            saveLink.onclick = function() {
+                $.post("/api/taskUpdate", { id: id, taskName: nameTextBox.value })
+                    .done(function() {
+                        replaceBack(id, nameTextBox.value);
+                    })
+                    .fail(function() {
+                        alert("Api Failed. New task name length " + nameTextBox.value.length);
+                    });
             };
-            
-            $(linkDelete).replaceWith(inputElement);
-            
-            $(taskName).html("<input id='tbName' placeholder='Enter new Name' />");
+            $(linkEdit).replaceWith(saveLink);
+
+            var linkDelete = $(tr).find('#linkDelete');
+            var cancelLink = document.createElement('a');
+            cancelLink.id = 'linkCancel';
+            cancelLink.classList = "btn";
+            cancelLink.text = "Cancel";
+            cancelLink.onclick = function() {
+                replaceBack(id, taskNameValue);
+            };
+            $(linkDelete).replaceWith(cancelLink);
         }
 
         function replaceBack(id, taskNameValue) {
             var tr = document.getElementById(id);
-            
-            $('#linkSave').replaceWith('<a id="linkEdit" class="btn" onclick="edit(' +id+')">Edit</a>');
-            $('#linkCancel').replaceWith('<a id="linkDelete" class="btn" onclick="submit('+id+')">Delete</a>');
+
+            $('#linkSave').replaceWith('<a id="linkEdit" class="btn" onclick="edit(' + id + ')">Edit</a>');
+            $('#linkCancel').replaceWith('<a id="linkDelete" class="btn" onclick="submit(' + id + ')">Delete</a>');
             $('#tbName').replaceWith(taskNameValue);
-        }        
+        }
     </script>
 }

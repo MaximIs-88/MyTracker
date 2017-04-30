@@ -33,5 +33,13 @@ namespace MyTracker.Data.Repositories.Concrete
                 .Include(_ => _.Author)
                 .AsEnumerable();
         }
+
+        public MyTask GetById(int id)
+        {
+            return _dbContext.Tasks
+                .Where(_ => !_.IsDeleted && _.Id == id)
+                .Include(_ => _.Author)
+                .FirstOrDefault();
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace MyTracker.Data.Repositories.Abstract
         void Delete(int id);
 
         IEnumerable<MyTask> GetAll();
+
+        MyTask GetById(int id);
     }
 }
